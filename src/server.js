@@ -4,7 +4,7 @@ import express from 'express';
 import pino from 'pino-http';
 import cors from 'cors';
 import { env } from './utils/env.js';
-import { getAllStudents, getStudentById } from './services/students.js';
+import { getAllContacts, getContactById } from './services/contacts.js';
 
 const PORT = Number(env('PORT', '3000'));
 
@@ -45,31 +45,31 @@ export const setupServer = () => {
     console.log(`Server is running on port ${PORT}`);
   });
 
-  app.get('/students', async (req, res) => {
-    const students = await getAllStudents();
+  app.get('/contacts', async (req, res) => {
+    const contacts = await getAllContacts();
 
     res.status(200).json({
-      data: students,
+      data: contacts,
     });
   });
 
-  app.get('/students/:studentId', async (req, res, next) => {
-    const { studentId } = req.params;
-    const student = await getStudentById(studentId);
+  app.get('/contacts/:contactId', async (req, res, next) => {
+    const { contactId } = req.params;
+    const contact = await getContactById(contactId);
 
-    if (!student) {
+    if (!contact) {
       res.status(404).json({
-        message: 'Student not found',
+        message: 'Contact not found',
       });
       return;
     }
 
     res.status(200).json({
-      data: student,
+      data: contact,
     });
   });
 
-  app.get('/students', async (req, res) => {});
+  app.get('/contacts', async (req, res) => {});
 
-  app.get('/students/:studentId', async (req, res) => {});
+  app.get('/contacts/:contactId', async (req, res) => {});
 };
