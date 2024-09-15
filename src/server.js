@@ -8,7 +8,7 @@ import { getAllStudents, getStudentById } from './services/students.js';
 
 const PORT = Number(env('PORT', '3000'));
 
-export const startServer = () => {
+export const setupServer = () => {
   const app = express();
 
   app.use(express.json());
