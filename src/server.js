@@ -1,5 +1,3 @@
-// src/server.js
-
 import express from 'express';
 import pino from 'pino-http';
 import cors from 'cors';
@@ -21,12 +19,6 @@ export const setupServer = () => {
       },
     }),
   );
-
-  // app.get('/', (req, res) => {
-  //   res.json({
-  //     message: 'Hello World!',
-  //   });
-  // });
 
   app.get('/contacts', async (req, res) => {
     const contacts = await getAllContacts();
