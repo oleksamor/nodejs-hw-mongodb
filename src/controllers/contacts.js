@@ -76,7 +76,8 @@ export const putContactController = async (req, res) => {
 };
 
 export const patchContactsController = async (req, res, next) => {
-  const { contactId } = req.params;
+  const id = req.params.contactId;
+
   const result = await updateContact(id, req.body);
 
   if (!result) {
