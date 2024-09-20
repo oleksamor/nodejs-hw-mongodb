@@ -1,5 +1,5 @@
 import { ContactsCollection } from '../db/models/contact.js';
-// import { updateContact } from './contacts';
+
 import createHttpError from 'http-errors';
 
 export const getAllContacts = async () => {
@@ -34,10 +34,10 @@ export const updateContact = async (contactId, payload, options = {}) => {
     },
   );
 
-  if (!rawResult || !rawResult.value) {
+  if (!rawResult.value) {
     throw createHttpError(404, {
       status: 404,
-      message: `Student with id ${id} not found!`,
+      message: `Contact with id ${id} not found!`,
     });
   }
 
