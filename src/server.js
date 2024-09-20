@@ -22,17 +22,15 @@ export const setupServer = () => {
     }),
   );
 
-  app.get('/', (req, res) => {
-    res.json({
-      message: 'Hello World!',
-    });
-  });
-
   app.use(contactsRouter);
 
   app.use('*', notFoundHandler);
 
   app.use(errorHadler);
+
+  app.get('/', (req, res) => {
+    res.send;
+  });
 
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
