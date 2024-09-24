@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import { createContactSchema } from '../../validation/contacts';
+import { createContactSchema } from '../../validation/contacts.js';
 
 const contactsSchema = new Schema(
   {
@@ -32,5 +32,5 @@ const contactsSchema = new Schema(
   },
 );
 
-createContactSchema();
+// createContactSchema();
 export const ContactsCollection = model('contacts', contactsSchema);

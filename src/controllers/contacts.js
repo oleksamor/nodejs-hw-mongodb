@@ -6,6 +6,7 @@ import {
   getContactById,
   updateContact,
 } from '../services/contacts.js';
+// import { createContactSchema } from '../validation/contacts.js';
 
 export const getContactsController = async (req, res, next) => {
   try {
@@ -39,6 +40,15 @@ export const getContactByIdController = async (req, res, next) => {
 
 export const createContactController = async (req, res) => {
   const contact = await createContact(req.body);
+
+  // const validationResult = createContactSchema.validate(contact, {
+  //   abortEarly: false,
+  // });
+  // if (validationResult.error) {
+  //   console.error(validationResult.error.message);
+  // } else {
+  //   console.log('Data is valid!');
+  // }
 
   res.status(201).json({
     status: 201,
