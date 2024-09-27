@@ -10,19 +10,22 @@ import {
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { isValidId } from '../middlewares/isValidId.js';
 import { validateBody } from '../middlewares/validateBody.js';
-import { createContactSchema } from '../validation/contacts.js';
+import {
+  createContactSchema,
+  updateContactSchema,
+} from '../validation/contacts.js';
 
 const contactsRouter = Router();
 
 contactsRouter.get(
   '/contacts',
-  validateBody(createContactSchema),
+  validateBody(updateContactSchema),
   ctrlWrapper(getContactsController),
 );
 
 contactsRouter.get(
   '/contacts/:contactId',
-  validateBody(createContactSchema),
+  validateBody(updateContactSchema),
   isValidId,
   ctrlWrapper(getContactByIdController),
 );
@@ -35,7 +38,6 @@ contactsRouter.post(
 
 contactsRouter.delete(
   '/contacts/:contactId',
-  validateBody(createContactSchema),
   isValidId,
   ctrlWrapper(deleteContactController),
 );
@@ -49,7 +51,7 @@ contactsRouter.put(
 
 contactsRouter.patch(
   '/contacts/:contactId',
-  validateBody(createContactSchema),
+  validateBody(updateContactSchema),
   isValidId,
   ctrlWrapper(patchContactsController),
 );
