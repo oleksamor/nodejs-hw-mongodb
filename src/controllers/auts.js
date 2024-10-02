@@ -1,5 +1,13 @@
 import { registerUser } from '../services/auth';
 
 export const registerController = async (req, res) => {
-  registerUser();
+  const { body } = req;
+
+  const user = await registerUser(body);
+
+  res.json({
+    status: 200,
+    message: 'Successfully registered a user!',
+    data: { user },
+  });
 };

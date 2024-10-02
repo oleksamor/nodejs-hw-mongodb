@@ -11,11 +11,3 @@ export const registerUserValidationSchema = Joi.object({
   email: Joi.string().email().required().email(),
   password: Joi.string().min(6).max(20).required(),
 });
-
-export const updateContactSchema = Joi.object({
-  name: Joi.string().min(3).max(30),
-  phoneNumber: Joi.number().integer().min(6).max(16),
-  email: Joi.string().email(),
-  isFavourite: Joi.boolean(),
-  contactType: Joi.string().valid('work', 'home', 'personal'),
-});
