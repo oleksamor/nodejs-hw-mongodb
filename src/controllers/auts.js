@@ -1,4 +1,5 @@
 import { registerUser } from '../services/auth.js';
+import { serializedUser } from '../utils/serializedUser.js';
 
 export const registerController = async (req, res) => {
   const { body } = req;
@@ -8,6 +9,6 @@ export const registerController = async (req, res) => {
   res.json({
     status: 200,
     message: 'Successfully registered a user!',
-    data: { user },
+    data: serializedUser(),
   });
 };
