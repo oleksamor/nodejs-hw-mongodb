@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { ctrlWrapper } from '../utils/ctrlWrapper';
-import { registerController } from '../controllers/auts';
-import { validateBody } from '../middlewares/validateBody';
-import { registerUserValidationSchema } from '../validation/registerUserValidationShema';
+import { ctrlWrapper } from '../utils/ctrlWrapper.js';
+import { registerController } from '../controllers/auts.js';
+import { validateBody } from '../middlewares/validateBody.js';
+import { registerUserValidationSchema } from '../validation/registerUserValidationShema.js';
 
 const authRouter = Router();
 

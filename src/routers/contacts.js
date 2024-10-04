@@ -55,5 +55,4 @@ contactsRouter.patch(
   isValidId,
   ctrlWrapper(patchContactsController),
 );
-
 export default contactsRouter;
