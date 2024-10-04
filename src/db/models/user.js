@@ -18,8 +18,9 @@ const userSchema = new Schema(
       unique: true,
     },
 
-    avatar: {
+    avatarUrl: {
       type: String,
+      default: null,
     },
   },
 
@@ -28,5 +29,11 @@ const userSchema = new Schema(
     versionKey: false,
   },
 );
+
+userSchema.methods.toJSON = function () {
+  const user = this.toObject();
+  delete user.password;
+  return user;
+};
 
 export const User = model('user', userSchema);
