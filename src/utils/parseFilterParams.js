@@ -10,5 +10,3 @@ export const parseFilterParams = (query) => {
     isFavourite: parseBoolean(query.isFavourite),
   };
 };
-
-// jwcldjljleaev
