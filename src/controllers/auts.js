@@ -1,4 +1,4 @@
-import { registerUser } from '../services/auth.js';
+import { loginUser, registerUser } from '../services/auth.js';
 import { serializedUser } from '../utils/serializedUser.js';
 
 export const registerController = async (req, res) => {
