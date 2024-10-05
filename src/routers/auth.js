@@ -20,6 +20,7 @@ authRouter.post(
   validateBody(loginUserValidationSchema),
   ctrlWrapper(loginUserController),
 );
+
 authRouter.post('/logout');
 authRouter.post('/refresh-session');
 
