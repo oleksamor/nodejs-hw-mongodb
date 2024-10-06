@@ -1,7 +1,7 @@
 import createHttpError from 'http-errors';
 import bcrypt from 'bcrypt';
 import { User } from '../db/models/user.js';
-
+import { randomBytes } from 'crypto';
 const findUserByEmail = async (email) => await User.findOne({ email });
 
 export const registerUser = async (payload) => {
@@ -26,4 +26,9 @@ export const loginUser = async (payload) => {
   if (!isEqual) {
     throw createHttpError(401, 'Unauthorized');
   }
+};
+
+export const createActiveSession = (userId) => {
+  const accessToken = randomBytes(30).toString('base64');
+  const refreshToken = randomBytes(30).toString('base64');
 };
