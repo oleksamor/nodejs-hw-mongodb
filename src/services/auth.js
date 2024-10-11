@@ -4,6 +4,7 @@ import { User } from '../db/models/user.js';
 import { randomBytes } from 'crypto';
 import { FIFTEEN_MINUTES, ONE_DAY } from '../constants/index.js';
 import { SessionsCollection } from '../db/models/session.js';
+import { Session } from 'inspector/promises';
 
 const findUserByEmail = async (email) => await User.findOne({ email });
 
@@ -49,5 +50,12 @@ const createActiveSession = async (userId) => {
     refreshToken,
     accessTokenValidUntil,
     refreshTokenValidUntil,
+  });
+};
+
+export const logoutUser = async (sessionId, sessionToken) => {
+  await SessionsCollection.deleteOne({
+    _id: sessionId,
+    refreshToken: sessionToken,
   });
 };
