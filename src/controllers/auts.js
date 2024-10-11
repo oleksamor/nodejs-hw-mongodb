@@ -19,20 +19,19 @@ export const loginUserController = async (req, res) => {
 
   const session = await loginUser(body);
 
-  res.cookie('refreshToken', session.refreshToken, {
+  res.cookie('sessionId', session._id, {
     httpOnly: true,
     expires: new Date(Date.now() + ONE_DAY),
   });
-  res.cookie('sessionId', session._id, {
+
+  res.cookie('refreshToken', session.refreshToken, {
     httpOnly: true,
     expires: new Date(Date.now() + ONE_DAY),
   });
 
   res.json({
     status: 200,
-    message: 'Successfully logged in a user!',
-    data: {
-      accessToken: session.accessToken,
-    },
+    message: 'Successfully logged in an user!',
+    data: { accessToken: session.accessToken },
   });
 };

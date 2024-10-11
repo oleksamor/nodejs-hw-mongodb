@@ -14,13 +14,14 @@ export const registerUser = async (payload) => {
     throw createHttpError(409, 'User with this email already registered!');
   }
   const hashedPassword = await bcrypt.hash(payload.password, 10);
+
   user = await User.create({ ...payload, password: hashedPassword });
 
   return user;
 };
 
 export const loginUser = async (payload) => {
-  let user = await findUserByEmail(payload.email);
+  const user = await findUserByEmail(payload.email);
 
   if (!user) {
     throw createHttpError(404, 'User not found!');
@@ -30,9 +31,10 @@ export const loginUser = async (payload) => {
     throw createHttpError(401, 'Unauthorized');
   }
   const session = await createActiveSession(user._id);
+  return session;
 };
 
-export const createActiveSession = async (userId) => {
+const createActiveSession = async (userId) => {
   await SessionsCollection.deleteOne({ userId });
 
   const accessToken = randomBytes(30).toString('base64');
