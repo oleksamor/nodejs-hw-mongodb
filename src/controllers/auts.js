@@ -24,7 +24,7 @@ export const loginUserController = async (req, res) => {
     expires: new Date(Date.now() + ONE_DAY),
   });
 
-  res.cookie('refreshToken', session.refreshToken, {
+  res.cookie('sessionToken', session.accessToken, {
     httpOnly: true,
     expires: new Date(Date.now() + ONE_DAY),
   });
