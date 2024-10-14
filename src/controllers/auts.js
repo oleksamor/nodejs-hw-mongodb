@@ -24,7 +24,7 @@ export const loginUserController = async (req, res) => {
     expires: new Date(Date.now() + ONE_DAY),
   });
 
-  res.cookie('sessionToken', session.accessToken, {
+  res.cookie('sessionToken', session.refreshToken, {
     httpOnly: true,
     expires: new Date(Date.now() + ONE_DAY),
   });
@@ -37,7 +37,7 @@ export const loginUserController = async (req, res) => {
 };
 export const logoutUserController = async (req, res) => {
   if (req.cookies.sessionId) {
-    await logoutUser(req.cookies.sessionId);
+    await logoutUser(req.cookies.sessionId, req.cookies.sessionToken);
   }
   res.clearCookie('sessionId');
   res.clearCookie('sessionToken');
