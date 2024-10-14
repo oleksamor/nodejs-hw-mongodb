@@ -5,6 +5,13 @@ import { randomBytes } from 'crypto';
 import { FIFTEEN_MINUTES, ONE_DAY } from '../constants/index.js';
 import { SessionsCollection } from '../db/models/session.js';
 
+const createSession = () => ({
+  accessToken: randomBytes(30).toString('base64'),
+  refreshToken: randomBytes(30).toString('base64'),
+  accessTokenValidUntil: Date.now() + FIFTEEN_MINUTES,
+  refreshTokenValidUntil: Date.now() + ONE_DAY,
+});
+
 const findUserByEmail = async (email) => await User.findOne({ email });
 
 export const registerUser = async (payload) => {
@@ -57,4 +64,30 @@ export const logoutUser = async (sessionId, sessionToken) => {
     _id: sessionId,
     refreshToken: sessionToken,
   });
+};
+
+export const refreshSession = async (sessionId, sessionToken) => {
+  const session = await SessionsCollection.findOne({
+    _id: sessionId,
+    refreshToken: sessionToken,
+  });
+
+  if (!session) {
+    throw createHttpError(401, 'Session not found');
+  }
+  const now = new Date();
+  if (session.refreshTokenValidUntil < now) {
+    throw createHttpError(401, 'Refresh token is expired');
+  }
+
+  await SessionsCollection.deleteOne({
+    _id: sessionId,
+    refreshToken: sessionToken,
+  });
+
+  const newSession = await SessionsCollection.create({
+    userId: session.userId,
+    ...createSession(),
+  });
+  return newSession;
 };
