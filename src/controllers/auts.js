@@ -13,7 +13,7 @@ const setupSessionCookies = (session, res) => {
     expires: new Date(Date.now() + ONE_DAY),
   });
 
-  res.cookie('sessionToken', session.refreshToken, {
+  res.cookie('refreshToken', session.refreshToken, {
     httpOnly: true,
     expires: new Date(Date.now() + ONE_DAY),
   });
@@ -33,9 +33,7 @@ export const registerController = async (req, res) => {
 
 export const loginUserController = async (req, res) => {
   const { body } = req;
-
   const session = await loginUser(body);
-
   setupSessionCookies(session, res);
 
   res.json({
@@ -44,19 +42,20 @@ export const loginUserController = async (req, res) => {
     data: { accessToken: session.accessToken },
   });
 };
+
 export const logoutUserController = async (req, res) => {
   if (req.cookies.sessionId) {
-    await logoutUser(req.cookies.sessionId, req.cookies.sessionToken);
+    await logoutUser(req.cookies.sessionId, req.cookies.refreshToken);
   }
   res.clearCookie('sessionId');
-  res.clearCookie('sessionToken');
+  res.clearCookie('refreshToken');
   res.status(204).send();
 };
 
 export const refreshUserSessionController = async (req, res) => {
   const session = await refreshSession(
     req.cookies.sessionId,
-    req.cookies.sessionToken,
+    req.cookies.refreshToken,
   );
 
   setupSessionCookies(session, res);

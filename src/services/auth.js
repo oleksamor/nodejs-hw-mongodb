@@ -59,17 +59,17 @@ const createActiveSession = async (userId) => {
   });
 };
 
-export const logoutUser = async (sessionId, sessionToken) => {
+export const logoutUser = async (sessionId, refreshToken) => {
   await SessionsCollection.deleteOne({
     _id: sessionId,
-    refreshToken: sessionToken,
+    refreshToken: refreshToken,
   });
 };
 
-export const refreshSession = async (sessionId, sessionToken) => {
+export const refreshSession = async (sessionId, refreshToken) => {
   const session = await SessionsCollection.findOne({
     _id: sessionId,
-    refreshToken: sessionToken,
+    refreshToken: refreshToken,
   });
 
   if (!session) {
@@ -82,7 +82,7 @@ export const refreshSession = async (sessionId, sessionToken) => {
 
   await SessionsCollection.deleteOne({
     _id: sessionId,
-    refreshToken: sessionToken,
+    refreshToken: refreshToken,
   });
 
   const newSession = await SessionsCollection.create({
