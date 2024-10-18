@@ -4,7 +4,6 @@ import cors from 'cors';
 import { env } from './utils/env.js';
 import { errorHadler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
-import authRouter from './routers/auth.js';
 import router from './routers/index.js';
 import cookieParser from 'cookie-parser';
 
@@ -26,7 +25,6 @@ export const setupServer = () => {
   );
 
   app.use(router);
-  app.use(authRouter);
 
   app.use('*', notFoundHandler);
 

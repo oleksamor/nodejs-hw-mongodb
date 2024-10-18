@@ -58,4 +58,4 @@ router.patch(
   isValidId,
   ctrlWrapper(patchContactsController),
 );
-export default contactsRouter;
+export default router;

@@ -10,20 +10,20 @@ import { validateBody } from '../middlewares/validateBody.js';
 import { registerUserValidationSchema } from '../validation/registerUserValidationShema.js';
 import { loginUserValidationSchema } from '../validation/loginUserValidationShema.js';
 
-const authRouter = Router();
+const router = Router();
 
-authRouter.post(
+router.post(
   '/register',
   validateBody(registerUserValidationSchema),
   ctrlWrapper(registerController),
 );
-authRouter.post(
+router.post(
   '/login',
   validateBody(loginUserValidationSchema),
   ctrlWrapper(loginUserController),
 );
 
-authRouter.post('/logout', ctrlWrapper(logoutUserController));
-authRouter.post('/refresh-session', ctrlWrapper(refreshUserSessionController));
+router.post('/logout', ctrlWrapper(logoutUserController));
+router.post('/refresh-session', ctrlWrapper(refreshUserSessionController));
 
-export default authRouter;
+export default router;
