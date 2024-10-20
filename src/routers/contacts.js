@@ -15,6 +15,8 @@ import {
   updateContactSchema,
 } from '../validation/contacts.js';
 import { authenticate } from '../middlewares/authenticate.js';
+import { ROLES } from '../constants/index.js';
+import { checkRoles } from '../middlewares/checkRoles.js';
 
 const contactsRouter = Router();
 
@@ -22,31 +24,34 @@ contactsRouter.use('/', authenticate);
 
 contactsRouter.get(
   '/',
-  // validateBody(updateContactSchema),
+  checkRoles(ROLES.TEACHER),
   ctrlWrapper(getContactsController),
 );
 
 contactsRouter.get(
   '/:contactId',
-  validateBody(updateContactSchema),
+  checkRoles(ROLES.TEACHER, ROLES.PARENT),
   isValidId,
   ctrlWrapper(getContactByIdController),
 );
 
 contactsRouter.post(
   '/',
+  checkRoles(ROLES.TEACHER),
   validateBody(createContactSchema),
   ctrlWrapper(createContactController),
 );
 
 contactsRouter.delete(
   '/:contactId',
+  checkRoles(ROLES.TEACHER),
   isValidId,
   ctrlWrapper(deleteContactController),
 );
 
 contactsRouter.put(
   '/:contactId',
+  checkRoles(ROLES.TEACHER),
   validateBody(createContactSchema),
   isValidId,
   ctrlWrapper(putContactController),
@@ -54,6 +59,7 @@ contactsRouter.put(
 
 contactsRouter.patch(
   '/:contactId',
+  checkRoles(ROLES.TEACHER, ROLES.PARENT),
   validateBody(updateContactSchema),
   isValidId,
   ctrlWrapper(patchContactsController),
