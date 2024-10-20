@@ -1,5 +1,4 @@
 import { model, Schema } from 'mongoose';
-import { createContactSchema } from '../../validation/contacts.js';
 
 const contactsSchema = new Schema(
   {
@@ -30,6 +29,8 @@ const contactsSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'users',
     },
+
+    parentId: { type: Schema.Types.ObjectId, ref: 'users' },
   },
   {
     timestamps: true,
@@ -37,5 +38,4 @@ const contactsSchema = new Schema(
   },
 );
 
-// createContactSchema();
 export const ContactsCollection = model('contacts', contactsSchema);

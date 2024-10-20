@@ -1,4 +1,5 @@
 import { model, Schema } from 'mongoose';
+import { ROLES } from '../../constants/index.js';
 
 const userSchema = new Schema(
   {
@@ -22,6 +23,11 @@ const userSchema = new Schema(
       type: String,
       default: null,
     },
+    role: {
+      type: String,
+      enum: [ROLES.TEACHER, ROLES.PARENT],
+      default: ROLES.PARENT,
+    },
   },
 
   {
@@ -30,10 +36,10 @@ const userSchema = new Schema(
   },
 );
 
-usersSchema.methods.toJSON = function () {
-  const obj = this.toObject();
-  delete obj.password;
-  return obj;
-};
+// userSchema.methods.toJSON = function () {
+//   const obj = this.toObject();
+//   delete obj.password;
+//   return obj;
+// };
 
 export const User = model('user', userSchema);
