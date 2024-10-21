@@ -22,7 +22,6 @@ authRouter.post(
   validateBody(loginUserValidationSchema),
   ctrlWrapper(loginUserController),
 );
-
 authRouter.post('/logout', ctrlWrapper(logoutUserController));
 
 authRouter.post('/refresh-session', ctrlWrapper(refreshUserSessionController));

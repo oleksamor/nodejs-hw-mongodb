@@ -11,14 +11,15 @@ const PORT = Number(env('PORT', '3000'));
 const setupServer = () => {
   const app = express();
 
+  app.use(cors());
+  app.use(cookieParser());
+
   app.use(
     express.json({
       type: ['application/json', 'application/vnd.api+json'],
     }),
   );
 
-  app.use(cors());
-  app.use(cookieParser());
   app.use(router);
   // app.use(
   //   pino({
