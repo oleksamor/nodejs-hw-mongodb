@@ -18,16 +18,6 @@ const userSchema = new Schema(
       required: true,
       unique: true,
     },
-
-    avatarUrl: {
-      type: String,
-      default: null,
-    },
-    role: {
-      type: String,
-      enum: [ROLES.TEACHER, ROLES.PARENT],
-      default: ROLES.PARENT,
-    },
   },
 
   {

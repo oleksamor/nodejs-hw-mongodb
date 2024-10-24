@@ -1,6 +1,6 @@
 import createHttpError from 'http-errors';
-import { ContactsCollection } from '../db/models/contact.js';
 import { SessionsCollection } from '../db/models/session.js';
+import { User } from '../db/models/user.js';
 
 export const authenticate = async (req, res, next) => {
   const authHeader = req.get('authorization');
@@ -16,7 +16,6 @@ export const authenticate = async (req, res, next) => {
     next(createHttpError(401, 'Auth header should be of type Bearer'));
     return;
   }
-
   const session = await SessionsCollection.findOne({ accessToken: token });
 
   if (!session) {
@@ -31,7 +30,7 @@ export const authenticate = async (req, res, next) => {
     next(createHttpError(401, 'Access token expired'));
   }
 
-  const user = await ContactsCollection.findById(session.userId);
+  const user = await User.findById(session.userId);
 
   if (!user) {
     next(createHttpError(401));
