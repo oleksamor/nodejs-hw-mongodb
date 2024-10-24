@@ -24,7 +24,7 @@ contactsRouter.use('/', authenticate);
 
 contactsRouter.get(
   '/',
-  checkRoles(ROLES.TEACHER),
+
   ctrlWrapper(getContactsController),
 );
 
@@ -37,21 +37,21 @@ contactsRouter.get(
 
 contactsRouter.post(
   '/',
-  checkRoles(ROLES.TEACHER),
+
   validateBody(createContactSchema),
   ctrlWrapper(createContactController),
 );
 
 contactsRouter.delete(
   '/:contactId',
-  checkRoles(ROLES.TEACHER),
+
   isValidId,
   ctrlWrapper(deleteContactController),
 );
 
 contactsRouter.put(
   '/:contactId',
-  checkRoles(ROLES.TEACHER),
+
   validateBody(createContactSchema),
   isValidId,
   ctrlWrapper(putContactController),
@@ -59,7 +59,7 @@ contactsRouter.put(
 
 contactsRouter.patch(
   '/:contactId',
-  checkRoles(ROLES.TEACHER, ROLES.PARENT),
+
   validateBody(updateContactSchema),
   isValidId,
   ctrlWrapper(patchContactsController),
