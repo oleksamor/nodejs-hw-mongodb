@@ -5,10 +5,12 @@ import {
   logoutUserController,
   refreshUserSessionController,
   registerController,
+  requestResetEmailController,
 } from '../controllers/auts.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { registerUserValidationSchema } from '../validation/registerUserValidationShema.js';
 import { loginUserValidationSchema } from '../validation/loginUserValidationShema.js';
+import { requestResetEmailSchema } from '../validation/contacts';
 
 const authRouter = Router();
 
@@ -25,5 +27,11 @@ authRouter.post(
 
 authRouter.post('/logout', ctrlWrapper(logoutUserController));
 authRouter.post('/refresh-session', ctrlWrapper(refreshUserSessionController));
+
+router.post(
+  '/request-reset-email',
+  validateBody(requestResetEmailSchema),
+  ctrlWrapper(requestResetEmailController),
+);
 
 export default authRouter;
