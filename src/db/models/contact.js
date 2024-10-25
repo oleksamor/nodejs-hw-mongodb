@@ -29,8 +29,6 @@ const contactsSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'users',
     },
-
-    parentId: { type: Schema.Types.ObjectId, ref: 'users' },
   },
   {
     timestamps: true,
