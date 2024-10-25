@@ -2,8 +2,11 @@ import createHttpError from 'http-errors';
 import bcrypt from 'bcrypt';
 import { User } from '../db/models/user.js';
 import { randomBytes } from 'crypto';
-import { FIFTEEN_MINUTES, ONE_DAY } from '../constants/index.js';
+import { FIFTEEN_MINUTES, ONE_DAY, SMTP } from '../constants/index.js';
 import { SessionsCollection } from '../db/models/session.js';
+import { sendEmail } from '../utils/sendMail.js';
+import { env } from '../utils/env.js';
+import jwt from 'jsonwebtoken';
 
 const createSession = () => ({
   accessToken: randomBytes(30).toString('base64'),
@@ -15,7 +18,7 @@ const createSession = () => ({
 const findUserByEmail = async (email) => await User.findOne({ email });
 
 export const registerUser = async (payload) => {
-  let user = await findUserByEmail(payload.email);
+  const user = await findUserByEmail(payload.email);
 
   if (user) {
     throw createHttpError(409, 'User with this email already registered!');
@@ -93,10 +96,11 @@ export const refreshSession = async (sessionId, sessionToken) => {
 };
 
 export const requestResetToken = async (email) => {
-  const user = await UsersCollection.findOne({ email });
+  const user = await User.findOne({ email });
   if (!user) {
     throw createHttpError(404, 'User not found');
   }
+
   const resetToken = jwt.sign(
     {
       sub: user._id,
@@ -114,5 +118,6 @@ export const requestResetToken = async (email) => {
     subject: 'Reset your password',
     html: `<p>Click <a href="${resetToken}">here</a> to reset your password!</p>`,
   });
+
   //доповнимо її трохи пізніше
 };
