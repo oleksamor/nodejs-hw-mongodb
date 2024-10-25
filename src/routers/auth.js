@@ -10,7 +10,7 @@ import {
 import { validateBody } from '../middlewares/validateBody.js';
 import { registerUserValidationSchema } from '../validation/registerUserValidationShema.js';
 import { loginUserValidationSchema } from '../validation/loginUserValidationShema.js';
-import { requestResetEmailSchema } from '../validation/contacts';
+import { requestResetEmailSchema } from '../validation/auth.js';
 
 const authRouter = Router();
 

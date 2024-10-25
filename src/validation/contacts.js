@@ -20,7 +20,3 @@ export const updateContactSchema = Joi.object({
   isFavourite: Joi.boolean(),
   contactType: Joi.string().valid('work', 'home', 'personal'),
 });
-
-export const requestResetEmailSchema = Joi.object({
-  email: Joi.string().email().required(),
-});
