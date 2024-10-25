@@ -30,7 +30,7 @@ const contactsSchema = new Schema(
       ref: 'users',
     },
 
-    parentId: { type: Schema.Types.ObjectId, ref: 'users' },
+
   },
   {
     timestamps: true,
