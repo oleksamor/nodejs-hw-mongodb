@@ -7,7 +7,7 @@ import {
   registerController,
   requestResetEmailController,
   resetPasswordController,
-} from '../controllers/auth.js';
+} from '../controllers/auts.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { registerUserValidationSchema } from '../validation/registerUserValidationShema.js';
 import { loginUserValidationSchema } from '../validation/loginUserValidationShema.js';
