@@ -108,7 +108,7 @@ export const requestResetToken = async (email) => {
     },
     env('JWT_SECRET'),
     {
-      expiresIn: '5m',
+      expiresIn: 60 * 5,
     },
   );
 
@@ -121,6 +121,7 @@ export const requestResetToken = async (email) => {
 
   //доповнимо
 };
+
 export const resetPassword = async (payload) => {
   let entries;
 
@@ -143,5 +144,8 @@ export const resetPassword = async (payload) => {
 
   const encryptedPassword = await bcrypt.hash(payload.password, 10);
 
-  await User.updateOne({ _id: user._id }, { password: encryptedPassword });
+  await User.findByIdAndUpdate(
+    { _id: user._id },
+    { password: encryptedPassword },
+  );
 };
