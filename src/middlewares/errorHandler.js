@@ -9,6 +9,7 @@ export const errorHadler = (err, req, res, next) => {
       data: err,
       error: err.message,
     });
+    return;
   }
 
   if (err instanceof MongooseError) {

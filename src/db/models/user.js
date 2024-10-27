@@ -1,4 +1,5 @@
 import { model, Schema } from 'mongoose';
+import { ROLES } from '../../constants/index.js';
 
 const userSchema = new Schema(
   {
@@ -17,11 +18,6 @@ const userSchema = new Schema(
       required: true,
       unique: true,
     },
-
-    avatarUrl: {
-      type: String,
-      default: null,
-    },
   },
 
   {
@@ -29,5 +25,11 @@ const userSchema = new Schema(
     versionKey: false,
   },
 );
+
+// userSchema.methods.toJSON = function () {
+//   const obj = this.toObject();
+//   delete obj.password;
+//   return obj;
+// };
 
 export const User = model('user', userSchema);
