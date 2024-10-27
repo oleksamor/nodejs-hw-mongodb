@@ -8,6 +8,7 @@ import {
 } from '../services/auth.js';
 import { serializedUser } from '../utils/serializedUser.js';
 import { ONE_DAY } from '../constants/index.js';
+import { generateAuthUrl } from '../utils/googleOAuth2.js';
 
 const setupSessionCookies = (session, res) => {
   res.cookie('sessionId', session._id, {
@@ -84,5 +85,16 @@ export const resetPasswordController = async (req, res) => {
     status: 200,
     message: 'Password has been successfully reset.',
     data: {},
+  });
+};
+
+export const getGoogleOAuthUrlController = async (req, res) => {
+  const url = generateAuthUrl();
+  res.json({
+    status: 200,
+    message: 'Successfully get Google OAuth url!',
+    data: {
+      url,
+    },
   });
 };
