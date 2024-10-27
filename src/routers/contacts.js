@@ -35,7 +35,6 @@ router.get(
 
 router.post(
   '/',
-  checkRoles(ROLES.TEACHER),
   isValidId,
   upload.single('photo'),
   validateBody(createContactSchema),
@@ -46,7 +45,6 @@ router.delete('/:contactId', isValidId, ctrlWrapper(deleteContactController));
 
 router.put(
   '/:contactId',
-  checkRoles(ROLES.TEACHER),
   isValidId,
   upload.single('photo'),
   validateBody(createContactSchema),
