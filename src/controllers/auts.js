@@ -102,7 +102,7 @@ export const getGoogleOAuthUrlController = async (req, res) => {
 
 export const loginWithGoogleController = async (req, res) => {
   const session = await loginOrSignupWithGoogle(req.body.code);
-  setupSession(res, session);
+  setupSessionCookies(session, res);
 
   res.json({
     status: 200,
