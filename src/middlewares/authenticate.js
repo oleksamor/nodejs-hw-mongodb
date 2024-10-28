@@ -4,7 +4,6 @@ import { User } from '../db/models/user.js';
 
 export const authenticate = async (req, res, next) => {
   const authHeader = req.get('authorization');
-  console.log(authHeader);
 
   if (!authHeader) {
     next(createHttpError(401, 'Please provide Authorization header'));
