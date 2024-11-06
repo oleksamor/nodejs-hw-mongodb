@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import { ROLES } from '../../constants/index.js';
+// import { ROLES } from '../../constants/index.js';
 
 const userSchema = new Schema(
   {
